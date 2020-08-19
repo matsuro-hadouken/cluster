@@ -1,16 +1,16 @@
 [Unit]
 Description=Solana Watchtower
-After=network.target
 Wants=solana-sys-tuner.service
-StartLimitIntervalSec=0
+After=network.target
 
 [Service]
+User=sol
 Type=simple
 Restart=always
 RestartSec=1
-User=sol
-LogRateLimitIntervalSec=0
-ExecStart=/home/sol/bin/watchtower.sh
+StartLimitInterval=0
+Environment="PATH=/home/sol/.local/share/solana/install/active_release/bin"
+ExecStart=/bin/bash -c "PATH=/home/sol/bin:$PATH exec /home/solana2/.local/bin/watchtower.sh"
 
 [Install]
 WantedBy=multi-user.target
